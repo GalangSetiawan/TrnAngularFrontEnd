@@ -1,0 +1,255 @@
+/* You can add global styles to this file, and also import other style files */
+.row-error {
+    background-color: #f56857 !important;
+}
+.fileupload-content {
+    overflow: auto;
+    height: 200px;
+}
+
+html, body { height: 100%; }
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+/** California style overrides */
+
+.layout-wrapper {
+    height: 100%;
+}
+
+.layout-main {
+    height: 100%;
+}
+
+.layout-main-content {
+    /** minus breadcrumb height: 31 px + border 1px + 1px unknown */
+    height: calc(100% - 33px);
+}
+
+/** check box di header table, biasanya untuk select/deselect all */ 
+.customCheckBoxClass {
+    .ui-chkbox-box.ui-state-active {
+        border-color: #ffffff !important;
+        background-color: #ffffff !important;
+        color: #606c88 !important;
+    }
+}
+
+/** utk modif tampilan p-table */
+.custom_ptable {
+
+    .ui-table-caption {
+        // background-color: #ffffff !important;
+        background-color: #D5DBDB !important;
+        border-top: none !important;
+        border-bottom: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        color: black !important;
+    }
+
+    .ui-table-tfoot tr td{
+        border-top: 1px solid #d6d7d9 !important;
+        border-bottom: 1px solid #d6d7d9 !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+
+    .ui-table-thead tr th {
+        padding: 0.286em 0.571em;
+        // border-top: 2px solid black !important;
+        // border-bottom: 2px solid black !important;
+        border-left: none !important;
+        border-right: none !important;
+        font-weight: 600;
+        color: #ffffff !important;
+        background-color: #4b6cb7 !important;    // untuk theme noir
+        // background-color: #606c88 !important;   -> untuk theme Ash
+        // text-align: left;        
+    }
+
+    .ui-table-tbody tr td {
+        // padding: 0.286em 0.571em;
+        // border-top: 2px solid black !important;
+        // border-bottom: 2px solid black !important;
+        border-left: none !important;
+        border-right: none !important;
+        // font-weight: 400;
+        // color: #212121;
+        // background-color: #ffffff;
+        // text-align: left;
+    }
+
+    .ui-paginator {
+        background-color: #ffffff;
+        border-top: 1px solid #d6d7d9 !important;
+        border-bottom: 1px solid #d6d7d9 !important;
+        border-left: none !important;
+        border-right: none !important;
+        padding: 0;
+    }
+
+    .ui-state-highlight {
+        background-color: lightgray !important;
+        color: black !important;
+    }
+}
+
+/** utk modif tampilan p-table yang ada di expandable row*/
+.custom_ptable_in_expandable_row {
+
+    .ui-table-caption {
+        background-color: #ffffff !important;
+        border-top: none !important;
+        border-bottom: none !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+
+    .ui-table-tfoot tr td{
+        border-top: 1px solid #d6d7d9 !important;
+        border-bottom: 1px solid #d6d7d9 !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+
+    .ui-table-thead tr th {
+        padding: 0.286em 0.571em;
+        border-top: 2px solid black !important;
+        border-bottom: 2px solid black !important;
+        border-left: none !important;
+        border-right: none !important;
+        font-weight: 600;
+        // color: #ffffff !important;
+        // background-color: #606c88 !important;
+        color: black !important;
+        background-color: white !important;
+        // text-align: left;
+    }
+
+    .ui-table-tbody tr td {
+        // padding: 0.286em 0.571em;
+        // border-top: 2px solid black !important;
+        // border-bottom: 2px solid black !important;
+        border-left: none !important;
+        border-right: none !important;
+        // font-weight: 400;
+        // color: #212121;
+        // background-color: #ffffff;
+        // text-align: left;
+    }
+
+    .ui-paginator {
+        background-color: #ffffff;
+        border-top: 1px solid #d6d7d9 !important;
+        border-bottom: 1px solid #d6d7d9 !important;
+        border-left: none !important;
+        border-right: none !important;
+        padding: 0;
+    }
+
+    .ui-table-summary {
+        background-color: #ffffff !important;
+        border-top: 3px solid black !important;
+        border-bottom: 3px solid black !important;
+        color: black !important;
+        border-left: none !important;
+        border-right: none !important;
+        padding: 0;
+        // padding: 0.571em 1.143em;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .ui-state-highlight {
+        background-color: lightgray !important;
+        color: black !important;
+    }
+}
+
+// untuk tampilan grid di report
+.grid_report {
+
+    .ui-table-caption {
+        background-color: #ffffff !important;
+        border-top: none !important;
+        border-bottom: none !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+  
+    .ui-table-tfoot tr td{
+        border-top: 1px solid #d6d7d9 !important;
+        border-bottom: 1px solid #d6d7d9 !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+  
+    .ui-table-thead tr th {
+        padding: 0.286em 0.571em;
+        border-top: 3px solid black !important;
+        border-bottom: 3px solid black !important;
+        border-left: none !important;
+        border-right: none !important;
+        font-weight: 600;
+        // color: #ffffff !important;
+        // background-color: #606c88 !important;
+        color: black !important;
+        background-color: white !important;
+        // text-align: left;
+    }
+  
+    .ui-table-tbody tr td {
+        // padding: 0.286em 0.571em;
+        // border-top: 2px solid black !important;
+        // border-bottom: 2px solid black !important;
+        border-left: none !important;
+        border-right: none !important;
+        // font-weight: 400;
+        // color: #212121;
+        // background-color: #ffffff;
+        // text-align: left;
+    }
+  
+    .ui-paginator {
+        background-color: #ffffff;
+        border-top: 1px solid #d6d7d9 !important;
+        border-bottom: 1px solid #d6d7d9 !important;
+        border-left: none !important;
+        border-right: none !important;
+        padding: 0;
+    }
+  
+    .ui-table-summary {
+        background-color: #ffffff !important;
+        border-top: 3px solid black !important;
+        border-bottom: 3px solid black !important;
+        color: black !important;
+        border-left: none !important;
+        border-right: none !important;
+        padding: 0;
+        // padding: 0.571em 1.143em;
+        text-align: center;
+        font-weight: 700;
+    }
+  
+    .ui-state-highlight {
+        background-color: lightgray !important;
+        color: black !important;
+    }
+}
+  
+// agar combo primeng tidak melebihi lebar div yang ditetapkan
+.ui-dropdown {
+    min-width:0;
+}
+
+// untuk men-disable div/tr/td
+.disabled-tag {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.ui-inputnumber-input {
+    text-align: right!important;
+  }
+  

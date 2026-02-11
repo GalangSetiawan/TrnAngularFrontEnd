@@ -1,0 +1,208 @@
+<p-table class='app-primeng-table'
+        [value]='dataTables'
+        [totalRecords]='totalRecordsDataTables'
+        [paginator]='true'
+        [rows]='numberOfRowsDataTables'
+        ([loading])='isLoadingResultsDataTables'
+        dataKey='keyIn'
+        [scrollable]='true'
+        [style]="{width: dataTablesWidth}"
+        styleClass="grid_report"
+        [columns]='colsDataTables'
+        [expandedRowKeys]='expandedRowsDataTables'
+        [multiSortMeta]="multiSortMeta"
+        >
+
+  <ng-template pTemplate='colgroup' let-columns>
+    <colgroup>
+      <col style='width:20px'>
+      <col style='width:50px'>
+      <col style='width:80px'>
+      <col style='width:120px'>
+      <col style='width:80px'>
+      <col style='width:120px'>
+      <col style='width:120px'>
+      <col style='width:120px'>
+      <col style='width:200px'>
+    </colgroup>
+  </ng-template>
+
+  <ng-template pTemplate='header' let-columns>
+    <tr>
+      <th></th>
+
+      <th>{{ 'Delete' | translate }}
+        <table style='width:100%'>
+          <tr>
+            <td>
+              <p-checkbox binary='true'
+                          inputId='kolomDeletedataTablesUT'
+                          (onChange)='deleteSelectorDataTables($event)'
+                          styleClass="customCheckBoxClass">
+              </p-checkbox>
+            </td>
+          </tr>
+        </table>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'right'}">
+          {{ 'NoUrut' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'right'}">
+          {{ 'Harga' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'right'}">
+          {{ 'ProsenDisc' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'right'}">
+          {{ 'NilaiProsenDisc' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'right'}">
+          {{ 'NilaiDisc' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'right'}">
+          {{ 'Netto' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'left'}">
+          {{ 'Keterangan' | translate }}
+        </div>
+      </th>
+
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate='body' let-row let-columns='columns' let-expanded='expanded'>
+    <tr>
+
+      <td>
+        <a href="#" [pRowToggler]="row"  *ngIf="row.errorMsg !== null">
+          <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+             style="color: black;"></i>
+        </a>
+      </td>
+
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate='output'>
+            <div *ngIf="row.isEdit === 'N' || row.isEdit === undefined">
+              <table style='width:100%'>
+                <tr>
+                  <td style='text-align: center'>
+                    <p-checkbox binary='true'
+                                inputId='kolomDeletedataTablesUT'
+                                (onChange)='deleteRowDataTables(row)'
+                                [(ngModel)]='row.isSelect'>
+                    </p-checkbox>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div *ngIf="row.isEdit === 'Y'" style='text-align: center'>
+              <p-checkbox binary='true'
+                          [(ngModel)]='row.isSelect'
+                          disabled = true>
+              </p-checkbox>
+            </div>
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'direction': 'rtl'}">
+          <a href='javascript:void(0);' (click)='editDataTables(row)'>
+            {{row.nourut | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}
+          </a>
+        </div>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'direction': 'rtl'}">
+          {{row.harga | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}
+        </div>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'direction': 'rtl'}">
+          {{row.pctdisc | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}
+        </div>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'direction': 'rtl'}">
+          {{row.nilpctdisc | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}
+        </div>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'direction': 'rtl'}">
+          {{row.nildisc | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}
+        </div>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'direction': 'rtl'}">
+          {{row.netto | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}
+        </div>
+      </td>
+
+      <td>
+        {{row.keterangan}}
+      </td>
+
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+    <tr *ngIf="rowData.errorMsg !== null" style="background-color: #FFEDED;">
+      <td colspan="10">
+        <div style="margin-left: 10px; margin-top: 3px; margin-bottom: 10px; padding-left: 10px; width: 790px; color:indianred">
+        <ng-template ngFor let-item [ngForOf]="rowData.errorMsg">
+          <b>{{item.desc}}</b><br>
+        </ng-template>
+      </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate='footer'>
+    <tr>
+      <td colspan="8">
+        <div>
+          <a pTooltip="{{ 'TambahData' | translate }}"
+            tooltipPosition="bottom"
+            (click)='addDataTables()'
+            style="margin-left: 30px;cursor: pointer;">
+
+            <i class="fa fa-plus">&nbsp;&nbsp;
+              <span style="font-family: 'Source Sans Pro', Arial, sans-serif;">
+                {{ 'TambahData' | translate }}
+              </span>
+            </i>
+
+          </a>    
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>

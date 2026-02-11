@@ -1,0 +1,12 @@
+<div class="route-bar">
+    <div class="route-bar-breadcrumb">
+        <i class="fa fa-home" (click)='goDashboard()' style="cursor: pointer;"></i>
+        <span> / </span>
+        <ng-template ngFor let-item let-last="last" [ngForOf]="menuItems">
+            <a [routerLink]="item.url" *ngIf="item.url" style="color: #5B6D99;">{{item.label}}</a>
+            <ng-container *ngIf="!item.url">{{item.label}}</ng-container>
+            <span *ngIf="!last">&nbsp;/&nbsp;</span>
+        </ng-template>
+    </div>
+</div>
+

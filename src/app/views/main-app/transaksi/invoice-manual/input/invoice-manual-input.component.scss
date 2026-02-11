@@ -1,0 +1,14 @@
+.customCheckBoxClass {
+    .ui-chkbox-box.ui-state-active {
+        border-color: #ffffff !important;
+        background-color: #ffffff !important;
+        color: #606c88 !important;
+    }
+}
+
+// agar tag input dengan tipe number tidak memiliki spinner
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

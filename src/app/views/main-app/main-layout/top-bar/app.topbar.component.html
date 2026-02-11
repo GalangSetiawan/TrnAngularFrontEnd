@@ -1,0 +1,14 @@
+<div class="layout-topbar">
+    <a class="logo" href="/">
+        <img [src]="displayLogoCompany">
+    </a>
+    <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)">
+        <i class="fa fa-align-left"></i>
+    </a>
+
+    <a id="layout-megamenu-button" href="#" (click)="app.onMegaMenuButtonClick($event)" *ngIf="false">
+        <i class="fa fa-angle-down"></i>
+        <span class="mega-menu-title">Mega Menu</span>
+    </a>
+
+</div>

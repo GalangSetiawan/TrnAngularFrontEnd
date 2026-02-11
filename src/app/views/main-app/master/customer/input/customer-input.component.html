@@ -1,0 +1,500 @@
+<div class='ui-g'>
+  <div class='ui-g-12'>
+    <div class="card no-margin">
+      <div class='p-formgrid p-grid'>
+        <div class='p-field p-grid p-col-6 p-justify-start p-align-center' style='margin-bottom: 1px;margin-left: 1px;'>
+          <h2 style="margin-top: 10px; margin-bottom: 10px;">{{ title | translate }}</h2>
+        </div>
+        <div class='p-field p-grid p-col-6 p-justify-end p-align-center' style='margin-bottom: 1px;'>
+        </div>
+      </div>
+
+      <hr style="margin-bottom: 30px;">
+
+      <form [formGroup]='inputForm'>
+
+        <!-- bagian atas -->
+        <div class="ui-g p-formgrid p-grid" style="padding-top: 0px; padding-bottom: 0px;">
+          <div class="ui-g-12 ui-md-6" style="padding-top: 1px; padding-bottom: 1px;">
+            <div class="ui-fluid ui-g-12 ui-md-5">
+                <label for="nomor"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Nama' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='nama'
+                      [ngStyle]="(inputForm.controls.nama.valid ||
+                                inputForm.controls.nama.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='nama'
+                      formControlName='nama'
+                      maxlength=50>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-md-6" style="padding-top: 1px; padding-bottom: 1px;">
+            <div class="ui-fluid ui-g-12 ui-md-5">
+                <label for="nomor"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'NamaCustomerInvoice' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='billcust2'
+                      [ngStyle]="(inputForm.controls.billcust2.valid ||
+                                inputForm.controls.billcust2.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='billcust2'
+                      formControlName='billcust2'
+                      maxlength=50>
+            </div>
+          </div>
+        </div>
+
+        <!-- bagian tengah -->
+        <div class="ui-g p-formgrid p-grid" style="padding-top: 0px; padding-bottom: 0px;">
+
+          <div class="ui-g-12 ui-md-6" style="padding-top: 1px; padding-bottom: 1px;">
+            <div class="ui-fluid ui-g-12 ui-md-12" style="font-weight: bold;">
+                <label for="keterangan"
+                        class='ui-fluid p-sm-3'
+                        style='padding: 2px!important;'>{{ 'PIC' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+                <label for="keterangan"
+                        class='ui-fluid p-sm-3'
+                        style='padding: 2px!important;'>{{ 'Nama' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='picnama'
+                      [ngStyle]="(inputForm.controls.picnama.valid ||
+                                inputForm.controls.picnama.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='picnama'
+                      formControlName='picnama'
+                      maxlength=50>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Telp' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='picnumber'
+                      [ngStyle]="(inputForm.controls.picnumber.valid ||
+                                inputForm.controls.picnumber.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='picnumber'
+                      formControlName='picnumber'
+                      maxlength=20>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Alamat' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <textarea rows='5'
+                        pInputTextarea
+                        name='picalamat'
+                        formControlName='picalamat'
+                        maxlength=500
+                        style="resize: none;"
+                        [ngStyle]="(inputForm.controls.picalamat.valid ||
+                        inputForm.controls.picalamat.disabled) ? {} :
+                        {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                        ></textarea>
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-fluid ui-g-12 ui-md-12" style="padding: 13px;">
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Role' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='picrole'
+                      [ngStyle]="(inputForm.controls.picrole.valid ||
+                                inputForm.controls.picrole.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='picrole'
+                      formControlName='picrole'
+                      maxlength=50>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Email' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='picemail'
+                      [ngStyle]="(inputForm.controls.picemail.valid ||
+                                inputForm.controls.picemail.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='picemail'
+                      formControlName='picemail'
+                      maxlength=50>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-g p-formgrid p-grid" style="padding-top: 0px; padding-bottom: 0px;">
+          <div class="ui-g-12 ui-md-6" style="padding-top: 1px; padding-bottom: 1px;">
+            <p-button type='button'
+                      label="{{ 'CopyToPihak2' | translate }}"
+                      styleClass='ui-button-raised float-left'
+                      icon='pi pi-copy'
+                      iconPos='left'
+                      (onClick)='copyToPihak2()'
+                      [style]="{'margin-left': '5px', 'margin-top': '10px'}"></p-button>
+          </div>
+        </div>
+
+          <!-- bagian bawah -->
+        <div class="ui-g p-formgrid p-grid" style="padding-top: 0px; padding-bottom: 0px;">
+
+          <!-- kolom pertama -->
+          <div class="ui-g-12 ui-md-6" style="padding-top: 1px; padding-bottom: 1px;">
+            <!-- BILL ASLI -->            
+            <div class="ui-fluid ui-g-12 ui-md-12" style="font-weight: bold;">
+                <label for="keterangan"
+                        class='ui-fluid p-sm-3'
+                        style='padding: 2px!important;'>{{ 'TagihPihakKedua' | translate }}</label>
+
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+                <label for="keterangan"
+                        class='ui-fluid p-sm-3'
+                        style='padding: 2px!important;'>{{ 'Nama' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='billnama'
+                      [ngStyle]="(inputForm.controls.billnama.valid ||
+                                inputForm.controls.billnama.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='billnama'
+                      formControlName='billnama'
+                      maxlength=50>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Role' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='picrole'
+                      [ngStyle]="(inputForm.controls.billrole.valid ||
+                                inputForm.controls.billrole.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='billrole'
+                      formControlName='billrole'
+                      maxlength=50>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Telp' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='billnumber'
+                      [ngStyle]="(inputForm.controls.billnumber.valid ||
+                                inputForm.controls.billnumber.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='billnumber'
+                      formControlName='billnumber'
+                      maxlength=20>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Email' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='billemail'
+                      [ngStyle]="(inputForm.controls.billemail.valid ||
+                                inputForm.controls.billemail.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='billemail'
+                      formControlName='billemail'
+                      maxlength=50>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Alamat' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <textarea rows='5'
+                        pInputTextarea
+                        name='billalamat'
+                        formControlName='billalamat'
+                        maxlength=500
+                        style="resize: none;"
+                        [ngStyle]="(inputForm.controls.billalamat.valid ||
+                        inputForm.controls.billalamat.disabled) ? {} :
+                        {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                        ></textarea>
+            </div>  
+
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 17px;">
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-5 p-justify-end" style="padding: 3px;">
+            <!-- <div class="ui-g-12 ui-md-12" style="padding-top: 1px; padding-bottom: 1px;"> -->
+              <p-button type='button'
+                        label="{{ 'CopyToPihak3' | translate }}"
+                        styleClass='ui-button-raised float-left'
+                        icon='pi pi-copy'
+                        iconPos='left'
+                        (onClick)='copyToPihak3()'
+                        [style]="{'margin-left': '5px', 'margin-top': '10px'}"></p-button>
+            </div>
+          </div>
+
+          <!-- kolom kedua -->
+          <div class="ui-g-12 ui-md-6" style="padding-top: 1px; padding-bottom: 1px;">
+            <!-- <div class="ui-fluid ui-g-12 ui-md-12" style="padding: 17px;">
+            </div> -->
+
+            <!-- BILL PIHAK KETIGA -->            
+            <div class="ui-fluid ui-g-12 ui-md-12" style="font-weight: bold;">
+                <label for="keterangan"
+                        class='ui-fluid p-sm-3'
+                        style='padding: 2px!important;'>{{ 'TagihPihakKetiga' | translate }}</label>
+
+            </div>
+
+            <!-- <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+                <label for="keterangan"
+                        class='ui-fluid p-sm-3'
+                        style='padding: 2px!important;'>{{ 'NamaCustomer' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='billcust2'
+                      [ngStyle]="(inputForm.controls.billcust2.valid ||
+                                inputForm.controls.billcust2.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='billcust2'
+                      formControlName='billcust2'
+                      maxlength=50>
+            </div> -->
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+                <label for="keterangan"
+                        class='ui-fluid p-sm-3'
+                        style='padding: 2px!important;'>{{ 'Nama' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='billnama2'
+                      [ngStyle]="(inputForm.controls.billnama2.valid ||
+                                inputForm.controls.billnama2.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='billnama2'
+                      formControlName='billnama2'
+                      maxlength=50>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Role' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='picrole'
+                      [ngStyle]="(inputForm.controls.billrole2.valid ||
+                                inputForm.controls.billrole2.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='billrole'
+                      formControlName='billrole2'
+                      maxlength=50>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Telp' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='billnumber2'
+                      [ngStyle]="(inputForm.controls.billnumber2.valid ||
+                                inputForm.controls.billnumber2.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='billnumber'
+                      formControlName='billnumber2'
+                      maxlength=20>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Email' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='billemail2'
+                      [ngStyle]="(inputForm.controls.billemail2.valid ||
+                                inputForm.controls.billemail2.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='billemail'
+                      formControlName='billemail2'
+                      maxlength=50>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5" style="padding-left: 25px;">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Alamat' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <textarea rows='5'
+                        pInputTextarea
+                        name='billalamat2'
+                        formControlName='billalamat2'
+                        maxlength=500
+                        style="resize: none;"
+                        [ngStyle]="(inputForm.controls.billalamat2.valid ||
+                        inputForm.controls.billalamat2.disabled) ? {} :
+                        {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                        ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- bagian paling bawah -->
+        <div class="ui-g p-formgrid p-grid" style="padding-top: 0px; padding-bottom: 0px;">
+          <div class="ui-g-12 ui-md-6" style="padding-top: 1px; padding-bottom: 1px;">
+            <div class="ui-fluid ui-g-12 ui-md-5">
+              <label for="keterangan"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'VirtualAccountBCA' | translate }}</label>
+
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='vabca'
+                      [ngStyle]="(inputForm.controls.vabca.valid ||
+                                inputForm.controls.vabca.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='vabca'
+                      formControlName='vabca'
+                      maxlength=50>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-5">
+              <label class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Aktif' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7 p-formgroup-inline" style="padding: 3px;">
+              <div *ngFor='let itemAktif of radioButtonAktif' class='p-field-checkbox'>
+                <p-radioButton inputId='itemAktif.key'
+                              name='itemAktif'
+                              [value]='itemAktif.key'
+                              formControlName='flakt'></p-radioButton>
+              <label [for]='itemAktif.key'>{{itemAktif.name | translate}}</label>
+              </div>
+            </div>              
+          
+            <div class="ui-fluid ui-g-12 ui-md-5">
+              <label class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'MainVA' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7 p-formgroup-inline" style="padding: 3px;">
+              <div *ngFor='let itemVa of radioButtonFlmainva' class='p-field-checkbox'>
+                <p-radioButton inputId='itemVa.key'
+                              name='itemVa'
+                              [value]='itemVa.key'
+                              formControlName='flmainva'></p-radioButton>
+              <label [for]='itemVa.key'>{{itemVa.name | translate}}</label>
+              </div>
+            </div>              
+            
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class='ui-g' (resized)="onDivDataTableResized($event)">
+
+    <div class="p-col-12 p-justify-start" style='margin-left: 0px;'>
+      <p-button type='submit'
+                label="{{ 'Simpan' | translate }}"
+                styleClass='ui-button-raised float-left'
+                icon='pi pi-save'
+                iconPos='left' (onClick)='Save()'
+                [disabled]='!inputForm.valid || isViewOnly'
+                [style]="{'margin-top': '10px'}"></p-button>
+
+      <!-- <p-button type='button'
+                label="{{ 'Hapus' | translate }}"
+                styleClass='ui-button-raised ui-button-danger'
+                icon='pi pi-trash'
+                iconPos='left'
+                (onClick)='delete()'
+                [style]="{'margin-left': '5px', 'margin-top': '10px'}"
+                [disabled]="!inputForm.valid || isViewOnly || mode === 'add'"></p-button> -->
+
+      <p-button type='button' label="{{ 'Kembali' | translate }}" styleClass='ui-button-raised ui-button-success' icon='pi pi-arrow-circle-left' iconPos='left' (click)='back()' [style]="{'margin-left': '5px', 'margin-top': '10px'}"></p-button>    
+    </div>
+
+</div>
+

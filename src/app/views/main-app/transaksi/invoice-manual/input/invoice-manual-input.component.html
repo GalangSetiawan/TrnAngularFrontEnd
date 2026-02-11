@@ -1,0 +1,422 @@
+<div class='ui-g'>
+  <div class='ui-g-12'>
+    <div class="card no-margin">
+      <div class='p-formgrid p-grid'>
+        <div class='p-field p-grid p-col-6 p-justify-start p-align-center' style='margin-bottom: 1px;margin-left: 1px;'>
+          <h2 style="margin-top: 10px; margin-bottom: 10px;">{{ title | translate }}</h2>
+        </div>
+      </div>
+
+      <hr style="margin-bottom: 30px;">
+
+      <form [formGroup]='inputForm'>
+
+        <div class="ui-g p-formgrid p-grid">
+          <div class="ui-g-12 ui-md-5">
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label for="nomor"
+                    class='ui-fluid p-sm-3'
+                    style='padding: 2px!important;'>{{ 'Nomor' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='nomor'
+                      [ngStyle]="(inputForm.controls.nomor.valid ||
+                                inputForm.controls.nomor.disabled) ? {} :
+                                {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                      name='nama'
+                      formControlName='nomor'
+                      maxlength=20>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-1" style="padding: 17px;">
+            </div>
+    
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3'
+                     style='padding: 2px!important;'>{{ 'Tanggal' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8"
+                 style="padding-left: 0px; padding-bottom: 0px; padding-top: 0px;">
+
+              <div class="ui-fluid ui-g-12 ui-md-5" style="padding: 3px;">
+                <p-calendar [showIcon]='true'
+                            [dateFormat]="defaultLanguageState.getDefaultLanguage().inputDateFormat"
+                            [showOnFocus]='false'
+                            name='tgtrn'
+                            [required]="inputForm.controls.tgtrn.valid"
+                            [placeholder]="defaultLanguageState.getDefaultLanguage().inputDateFormat"
+                            formControlName='tgtrn'
+                            [locale]="defaultLanguageState.getDefaultLanguage().datePrimeNg"
+                            [ngClass]="{'ui-state-error' : !inputForm.controls.tgtrn.valid && !inputForm.controls.tgtrn.disabled}"
+                            >
+                </p-calendar>
+              </div>
+            </div>
+            <!-- <div class="ui-fluid ui-g-12 ui-md-1" style="padding: 17px;">
+            </div> -->
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label for="nomor"
+                    class='ui-fluid p-sm-3'
+                    style='padding: 2px!important;'>{{ 'Customer' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-7" 
+                 style="padding: 3px;">
+
+              <div [ngStyle]="inputForm.controls.customer.value.nama === null ? {'border-style': 'solid', 'border-width': '1px', 'border-color': 'red'} : {}">
+                <p-autoComplete inputId='customer'
+                                formControlName="customer"
+                                [suggestions]='filteredCustomer'
+                                field='nama'
+                                (completeMethod)='filterCustomer($event)'
+                                appendTo='body'
+                                [minLength]="3"
+                                [dropdown]="true"
+                                (onBlur)="verifikasiAutocompleteCustomer(inputForm.controls.customer.value)"
+                                (onSelect)="selectedCustomer()"
+                                >
+                  <ng-template let-data pTemplate="item">
+                    <div class="ui-helper-clearfix">
+                      <div style="float:left;margin:10px 10px 0 0">{{data.nama}}&nbsp;&nbsp;({{data.keterangan}})</div>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-1" style="padding: 3px;">
+              <p-button type='button'
+                        styleClass='ui-button-raised'
+                        icon='pi pi-question'
+                        iconPos='left'
+                        (click)='showInfoCustomer()'></p-button>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+                <label for="nmcust"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'NamaCustomerInvoice' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='nmcust'
+                      name='nmcust'
+                      formControlName='nmcust'
+                      maxlength=200>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+                <label for="nama"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'NamaTagihan' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <input pInputText
+                      type='text'
+                      id='nama'
+                      name='nama'
+                      formControlName='nama'
+                      maxlength=200>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+                <label for="alamat"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>{{ 'Alamat' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <textarea rows='5'
+                        pInputTextarea
+                        name='alamat'
+                        formControlName='alamat'
+                        maxlength=300></textarea>
+            </div>
+            <!-- <div class="ui-fluid ui-g-12 ui-md-2" style="padding: 17px;">
+            </div> -->
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3'
+                     style='padding: 2px!important;'>{{ 'StatusInvoice' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-6" style="padding: 3px;">
+              <p-dropdown inputId='status'
+                          [options]='comboStatus'
+                          formControlName='status'
+                          appendTo='body'>
+              </p-dropdown>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-2" style="padding: 17px;">
+            </div>
+
+            <div class="ui-g-12 ui-md-12"
+                 style="padding: 3px;"
+                 *ngIf="inputForm.controls.fltodep.value === 'Y'">
+              <div class="ui-fluid ui-g-12 ui-md-7" style="padding: 3px;margin-top: 2px;">
+                <label for="potensiDeposit"
+                       class='ui-fluid p-sm-3'
+                       style='padding: 2px!important;'>{{ 'Deposit' | translate }}&nbsp;
+                       <span *ngIf="inputForm.controls.satsiklus.value !== ''">
+                        {{ 'Untuk' | translate }}&nbsp;&nbsp;
+                        {{inputForm.controls.jumbul.value | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}&nbsp;&nbsp;
+                        x&nbsp;&nbsp;(&nbsp;
+                        {{inputForm.controls.jumsiklus.value | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}&nbsp;
+                        {{inputForm.controls.satsiklus.value | translate}}&nbsp;)&nbsp;&nbsp;: 
+                       </span>
+                </label>
+              </div>
+
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+                <p-inputNumber mode='decimal'
+                               locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                               name='nildep'
+                               formControlName='nildep'
+                               maxlength=17
+                               size=auto>
+                </p-inputNumber>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-1" style="padding: 3px;">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="ui-g-12 ui-md-7">
+
+            <div class="ui-fluid ui-g-12 ui-md-12" style="padding: 17px;">
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3'
+                     style='padding: 2px!important;'>{{ 'TglJatuhTempo' | translate }}</label>
+            </div>
+            <div class="ui-g-12 ui-md-8" style="padding: 0px;">
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+                <p-calendar [showIcon]='true'
+                            [dateFormat]="defaultLanguageState.getDefaultLanguage().inputDateFormat"
+                            [showOnFocus]='false'
+                            name='tgjtemp'
+                            [required]="inputForm.controls.tgjtemp.valid"
+                            [placeholder]="defaultLanguageState.getDefaultLanguage().inputDateFormat"
+                            formControlName='tgjtemp'
+                            [locale]="defaultLanguageState.getDefaultLanguage().datePrimeNg"
+                            [ngClass]="{'ui-state-error' : !inputForm.controls.tgjtemp.valid && !inputForm.controls.tgjtemp.disabled}"
+                            >
+                </p-calendar>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+              </div>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-12" style="padding: 17px;">
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label for="nomor"
+                    class='ui-fluid p-sm-3'
+                    style='padding: 2px!important;'>{{ 'Bruto' | translate }}</label>
+            </div>
+            <div class="ui-g-12 ui-md-8" style="padding: 0px;">
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+                <p-inputNumber mode='decimal'
+                                locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                                name='bruto'
+                                formControlName='bruto'
+                                maxlength=17
+                                size=auto>
+                </p-inputNumber>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+              </div>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label for="nomor"
+                    class='ui-fluid p-sm-3'
+                    style='padding: 2px!important;'>{{ 'TotalDiskon' | translate }}</label>
+            </div>
+            <div class="ui-g-12 ui-md-8" style="padding: 0px;">
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+                <p-inputNumber mode='decimal'
+                                locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                                name='totdisc'
+                                formControlName='totdisc'
+                                maxlength=17
+                                size=auto>
+                </p-inputNumber>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+              </div>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-2">
+              <label for="nomor"
+                    class='ui-fluid p-sm-3'
+                    style='padding: 2px!important;'>{{ 'Diskon' | translate }}</label>
+            </div>
+            <div class="ui-g-12 ui-md-10" style="padding: 0px;">
+              <div class="ui-fluid ui-g-12 ui-md-2" style="padding: 3px;">
+                <p-inputNumber mode='decimal'
+                                locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                                name='pctdis'
+                                formControlName='pctdis'
+                                maxlength=17
+                                size=auto
+                                (onBlur)="hitungNilaiDiskonDariProsen()">
+                </p-inputNumber>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-1" style="padding: 3px; width: 3.5%;margin-top: 2px;">
+                <label>%</label>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px; width: 26.5%">
+                <p-inputNumber mode='decimal'
+                                locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                                name='nildis'
+                                formControlName='nildis'
+                                maxlength=17
+                                size=auto
+                                (onBlur)="hitungProsenDariNilai()">
+                </p-inputNumber>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-6" style="padding-top: 3px; padding-bottom: 0px;">
+                <textarea rows='1'
+                          pInputTextarea
+                          name='ketdis'
+                          formControlName='ketdis'
+                          maxlength=300></textarea>
+              </div>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label for="nomor"
+                    class='ui-fluid p-sm-3'
+                    style='padding: 2px!important;'>{{ 'DPP' | translate }}</label>
+            </div>
+            <div class="ui-g-12 ui-md-8" style="padding: 0px;">
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+                <p-inputNumber mode='decimal'
+                               locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                               name='dpp'
+                               formControlName='dpp'
+                               maxlength=17
+                               size=auto>
+                </p-inputNumber>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+              </div>
+            </div>
+    
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label for="nomor"
+                    class='ui-fluid p-sm-3'
+                    style='padding: 2px!important;'>{{ 'PPN' | translate }}</label>
+            </div>
+            <div class="ui-g-12 ui-md-8" style="padding: 0px;">
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 7px;text-align: right;">
+                <label for="nomor"
+                      class='ui-fluid p-sm-3'
+                      style='padding: 2px!important;'>(10%)</label>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+                <p-inputNumber mode='decimal'
+                               locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                               name='ppn'
+                               formControlName='ppn'
+                               maxlength=17
+                               size=auto>
+                </p-inputNumber>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+              </div>
+            </div>
+
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label for="nomor"
+                    class='ui-fluid p-sm-3'
+                    style='padding: 2px!important;'>{{ 'Netto' | translate }}</label>
+            </div>
+            <div class="ui-g-12 ui-md-8" style="padding: 0px;">
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 3px;">
+                <p-inputNumber mode='decimal'
+                               locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                               name='netto'
+                               formControlName='netto'
+                               maxlength=17
+                               size=auto>
+                </p-inputNumber>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </form>
+
+      <br>
+
+      <p-tabView [activeIndex]='tabIndex'>
+
+        <p-tabPanel header="{{ tab2Title | translate }}">
+
+          <div class='p-formgrid p-grid' #templateBody>
+            <div class='p-field p-grid p-col-12 p-align-start p-justify-start' style='margin-bottom: 1px;margin-left: 2px;'>
+          
+              <app-tabel-detil-lain-lain [(dataTables)]="dataTablesLainLain" 
+                                         [isLoadingResultsDataTables]="isLoadingResultsDataTablesLainLain"
+                                         [totalRecordsDataTables]="totalRecordsDataTablesLainLain"
+                                         [expandedRowsDataTables]="expandedRowsDataTablesLainLain"
+                                         [dataTablesWidth]="dataTablesWidth"
+                                         (dataTablesChange)="detilLainLainChanged()"
+                                         >
+              </app-tabel-detil-lain-lain>
+               
+            </div>
+          </div>
+    
+        </p-tabPanel>
+      </p-tabView>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class='ui-g' (resized)="onDivDataTableResized($event)">
+
+    <div class="p-col-12 p-justify-start" style='margin-left: 0px;'>
+      <p-button type='submit'
+                label="{{ 'Simpan' | translate }}"
+                styleClass='ui-button-raised float-left'
+                icon='pi pi-save'
+                iconPos='left' (onClick)='Save()'
+                [disabled]='!inputForm.valid || isViewOnly'
+                [style]="{'margin-top': '10px'}"></p-button>
+
+      <p-button type='button'
+                label="{{ 'Hapus' | translate }}"
+                styleClass='ui-button-raised ui-button-danger'
+                icon='pi pi-trash'
+                iconPos='left'
+                (onClick)='delete()'
+                [style]="{'margin-left': '5px', 'margin-top': '10px'}"
+                [disabled]="selectedData.status.trim() !== 'NOSENT' || isViewOnly || mode === 'add'"></p-button>
+
+      <p-button type='button' label="{{ 'Kembali' | translate }}" styleClass='ui-button-raised ui-button-success' icon='pi pi-arrow-circle-left' iconPos='left' (click)='back()' [style]="{'margin-left': '5px', 'margin-top': '10px'}"></p-button>    
+    </div>
+
+</div>
+

@@ -1,0 +1,94 @@
+<p-card>
+  <form [formGroup]='filterForm'>
+
+    <div class='p-formgrid p-grid'>
+      <div class="ui-g-12 ui-md-12">
+        <div class="ui-fluid ui-g-12 ui-md-3">
+          <label class='ui-fluid p-sm-3'
+                 style='padding: 2px!important;'>{{ 'NamaCustomer' | translate }}</label>
+        </div>
+        <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+          <input pInputText
+                 type='text'
+                 id='nama'
+                 name='nama'
+                 formControlName='nama'
+                 maxlength=30>
+        </div>
+
+        <div class="ui-fluid ui-g-12 ui-md-3">
+          <label class='ui-fluid p-sm-3'
+                 style='padding: 2px!important;'>{{ 'PicNama' | translate }}</label>
+        </div>
+        <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+          <input pInputText
+                 type='text'
+                 id='picnama'
+                 name='picnama'
+                 formControlName='picnama'
+                 maxlength=30>
+        </div>
+      </div>
+    </div>
+
+    <div class='p-formgrid p-grid'>
+      <div class='p-field p-grid p-col-12 p-align-start' style='margin-bottom: 1px;margin-left: 2px;'>
+        <p-button type='button' label="{{ 'Cari' | translate }}" styleClass='ui-button-raised ui-button-info' icon='pi pi-search' iconPos='left' (click)='search1()' [style]="{'margin-left': '5px', 'margin-top': '10px'}"></p-button>
+        <p-button type='button' label="{{ 'Kembali' | translate }}" styleClass='ui-button-raised ui-button-success' icon='pi pi-arrow-left' iconPos='left' (click)='backBack1()' [style]="{'margin-left': '5px', 'margin-top': '10px'}"></p-button>
+        </div>
+    </div>
+
+  </form>
+
+<br />
+    <p-table class='app-primeng-table'
+             [value]='dataTables'
+             [totalRecords]='totalRecordsDataTables'
+             [lazy]='true'
+             [paginator]='true'
+             [rows]='numberOfRowsDataTables'
+             ([loading])='isLoadingResultsDataTables'
+             (onLazyLoad)='doInstantFilterSearch1($event)'
+             [scrollable]='true'
+             [style]="{width: '100%'}"
+             >
+      <ng-template pTemplate='colgroup' let-columns>
+        <colgroup>
+          <col style='width:100px'>
+          <col style='width:100px'>
+        </colgroup>
+      </ng-template>
+
+      <ng-template pTemplate='header'>
+        <tr>
+          <th>{{ 'Nama' | translate }}</th>
+
+          <th>{{ 'PicNama' | translate }}</th>
+
+          <th>{{ 'PicAlamat' | translate }}</th>
+
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate='body' let-row>
+        <tr>
+          <td>
+                <a href='javascript:void(0)' (click)='onSelected(row)'>
+              {{row.nama}}
+                </a>
+          </td>
+          <td>
+              {{row.picnama}}
+          </td>
+          <td>
+              {{row.picalamat}}
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate='summary'>
+        Total : {{ totalRecordsDataTables }} records
+      </ng-template>
+    </p-table>
+</p-card>
+

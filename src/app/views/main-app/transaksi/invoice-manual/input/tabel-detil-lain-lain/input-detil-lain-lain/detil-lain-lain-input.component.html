@@ -1,0 +1,193 @@
+<p-card>
+  <form [formGroup]='inputForm'>
+
+    <div class="ui-g p-formgrid p-grid">
+      <div class="ui-g-12 ui-md-12">
+
+        <!-- baris pertama -->
+        <div class="ui-fluid ui-g-12 ui-md-2">
+          <label for="nomor"
+                class='ui-fluid p-sm-3'
+                style='padding: 2px!important;'>{{ 'NoUrut' | translate }}</label>
+        </div>
+        <div class="ui-fluid ui-g-12 ui-md-6" style="padding: 3px;">
+          <input pInputText
+                  type='number'
+                  id='nourut'
+                  formControlName='nourut'
+                  style='width: 50px;'
+                  maxlength='3'
+                  [ngClass]="{'ui-state-error' : !inputForm.controls.nourut.valid && !inputForm.controls.nourut.disabled}"
+                  >
+        </div>
+        <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 17px;">
+        </div>
+
+        <!-- baris kedua -->
+        <div class="ui-fluid ui-g-12 ui-md-2">
+          <label for="nomor"
+                class='ui-fluid p-sm-3'
+                style='padding: 2px!important;'>{{ 'Harga' | translate }}</label>
+        </div>
+        <div class="ui-g-12 ui-md-8" style="padding: 0px;">
+          <div class="ui-fluid ui-g-12 ui-md-3" style="padding: 3px;">
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-1" style="text-align: center;">
+            <label for="nomor"
+                  class='ui-fluid p-sm-3'
+                  style='padding: 2px!important;'>=</label>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-3" style="padding: 3px;">
+            <p-inputNumber mode='decimal'
+                            locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                            name='harga'
+                            formControlName='harga'
+                            maxlength=17
+                            size=auto
+                            (ngModelChange)="hargaChanged()">
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="ui-fluid ui-g-12 ui-md-2" style="padding: 17px;">
+        </div>
+
+        <!-- baris ketiga -->
+        <div class="ui-fluid ui-g-12 ui-md-2">
+          <label for="nomor"
+                class='ui-fluid p-sm-3'
+                style='padding: 2px!important;'>{{ 'ProsenDisc' | translate }}</label>
+        </div>
+        <div class="ui-g-12 ui-md-8" style="padding: 0px;">
+          <div class="ui-fluid ui-g-12 ui-md-3" style="padding: 3px;">
+            <p-inputNumber mode='decimal'
+                           locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                           name='pctdisc'
+                           formControlName='pctdisc'
+                           maxlength=5
+                           size=auto
+                           (ngModelChange)="pctdiscChanged()">
+            </p-inputNumber>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-1" style="text-align: center;">
+            <label for="nomor"
+                  class='ui-fluid p-sm-3'
+                  style='padding: 2px!important;'>=</label>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-3" style="padding: 3px;">
+            <p-inputNumber mode='decimal'
+                           locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                           name='nilpctdisc'
+                           formControlName='nilpctdisc'
+                           maxlength=17
+                           size=auto>
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="ui-fluid ui-g-12 ui-md-2" style="padding: 17px;">
+        </div>
+        
+        <!-- baris keempat -->
+        <div class="ui-fluid ui-g-12 ui-md-2">
+          <label for="nomor"
+                class='ui-fluid p-sm-3'
+                style='padding: 2px!important;'>{{ 'NilaiDisc' | translate }}</label>
+        </div>
+        <div class="ui-g-12 ui-md-8" style="padding: 0px;">
+          <div class="ui-fluid ui-g-12 ui-md-3" style="padding: 3px;">
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-1" style="text-align: center;">
+            <label for="nomor"
+                  class='ui-fluid p-sm-3'
+                  style='padding: 2px!important;'>=</label>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-3" style="padding: 3px;">
+            <p-inputNumber mode='decimal'
+                           locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                           name='nildisc'
+                           formControlName='nildisc'
+                           maxlength=17
+                           size=auto
+                           (ngModelChange)="nildiscChanged()">
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="ui-fluid ui-g-12 ui-md-2" style="padding: 17px;">
+        </div>
+        
+        <!-- baris kelima -->
+        <div class="ui-fluid ui-g-12 ui-md-2">
+          <label for="nomor"
+                class='ui-fluid p-sm-3'
+                style='padding: 2px!important;'>{{ 'Netto' | translate }}</label>
+        </div>
+        <div class="ui-g-12 ui-md-8" style="padding: 0px;">
+          <div class="ui-fluid ui-g-12 ui-md-3" style="padding: 3px;">
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-1" style="text-align: center;">
+            <label for="nomor"
+                  class='ui-fluid p-sm-3'
+                  style='padding: 2px!important;'>=</label>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-3" style="padding: 3px;">
+            <p-inputNumber mode='decimal'
+                           locale="{{defaultLanguageState.getDefaultLanguage().locale}}"
+                           name='netto'
+                           formControlName='netto'
+                           maxlength=17
+                           size=auto>
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="ui-fluid ui-g-12 ui-md-2" style="padding: 17px;">
+        </div>
+        
+        <div class="ui-fluid ui-g-12 ui-md-2">
+          <label for="nomor"
+                class='ui-fluid p-sm-3'
+                style='padding: 2px!important;'>{{ 'Keterangan' | translate }}</label>
+        </div>
+        <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+          <textarea rows='3'
+                    pInputTextarea
+                    name='keterangan'
+                    formControlName='keterangan'
+                    maxlength=200></textarea>
+        </div>
+        <!-- <div class="ui-fluid ui-g-12 ui-md-4" style="padding: 52px;">
+        </div> -->
+
+      </div>
+
+    </div>
+
+    <div class="p-col-12 p-justify-start" style='margin-left: 0px;'>
+      <span></span>
+    </div>
+
+  </form>
+
+  <form [formGroup]='inputForm'>
+    <div class='p-formgrid p-grid'>
+      <div class='p-field p-grid p-col-0 p-align-start' style='margin-bottom: 1px;margin-left: 2px;'>
+        <p-button type='button'
+                  label="{{ 'Simpan' | translate }}"
+                  styleClass='ui-button-raised'
+                  icon='pi pi-save'
+                  iconPos='left'
+                  (onClick)='Save1()'
+                  [disabled]='!inputForm.valid'
+                  [style]="{'margin-left': '5px', 'margin-top': '10px'}"></p-button>
+
+        <p-button type='button'
+                  label="{{ 'Kembali' | translate }}"
+                  styleClass='ui-button-raised ui-button-success'
+                  icon='pi pi-arrow-left'
+                  iconPos='left'
+                  (onClick)='backBack1()'
+                  [style]="{'margin-left': '5px', 'margin-top': '10px'}"></p-button>
+        </div>
+    </div>
+
+  </form>
+</p-card>
+

@@ -1,0 +1,228 @@
+<div class='ui-g' (resized)="onDivDataTableResized($event)"></div>
+  <div class='ui-g-12'>
+    <div class="card no-margin">
+
+      <div class='p-formgrid p-grid'>
+        <div class='p-field p-grid p-col-6 p-justify-start p-align-center' style='margin-bottom: 1px;margin-left: 1px;'>
+          <h2 style="margin-top: 10px; margin-bottom: 10px;">{{ title | translate }} - {{ 'Browse' | translate }}</h2>
+        </div>
+      </div>
+
+      <hr style="margin-bottom: 30px;">
+
+      <form [formGroup]='userForm'>
+
+        <div class="ui-g p-formgrid p-grid">
+          <div class="ui-g-12 ui-md-6">
+              <div class="ui-fluid ui-g-12 ui-md-3">
+                <label class='ui-fluid p-sm-3'
+                       style='padding: 2px!important;'>{{ 'Nomor' | translate }}</label>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+                <input pInputText
+                       type='text'
+                       id='nomor'
+                       name='nomor'
+                       formControlName='nomor'
+                       maxlength=30>
+              </div>
+              
+              <div class="ui-fluid ui-g-12 ui-md-3">
+                <label class='ui-fluid p-sm-3'
+                       style='padding: 2px!important;'>{{ 'Customer' | translate }}</label>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+                <input pInputText
+                       type='text'
+                       id='nama'
+                       name='nama'
+                       formControlName='nama'
+                       maxlength=200>
+              </div>
+              
+              <div class="ui-fluid ui-g-12 ui-md-3">
+                <label class='ui-fluid p-sm-3'
+                       style='padding: 2px!important;'>{{ 'StatusInvoice' | translate }}</label>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+                <p-dropdown inputId='status'
+                            [options]='comboStatus'
+                            formControlName='status'
+                            appendTo='body'>
+                </p-dropdown>
+              </div>
+
+              <div class="ui-fluid ui-g-12 ui-md-3">
+                <label class='ui-fluid p-sm-3'
+                       style='padding: 2px!important;'>{{ 'Deposit' | translate }}</label>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-9 p-formgroup-inline" style="padding: 3px;">
+                <div *ngFor='let item of radioButtonDeposit' class='p-field-checkbox'>
+                  <p-radioButton inputId='item.key'
+                               name='item'
+                               [value]='item.key'
+                               formControlName='fltodep'></p-radioButton>
+                <label [for]='item.key'>{{item.name | translate}}</label>
+                </div>
+              </div>
+
+          </div>
+        </div>
+
+        <div class='p-formgrid p-grid'>
+          <div class='p-field p-grid p-col-12 p-align-start p-justify-start' style='margin-bottom: 1px;margin-left: 2px;'>
+              <p-button type='submit' label="{{ 'Cari' | translate }}" styleClass='ui-button-raised ui-button-primary' icon='pi pi-search' iconPos='left' (click)='search()' [style]="{'margin-left': '5px', 'margin-top': '10px'}"></p-button>
+          </div>
+        </div>
+
+      </form>
+
+      <br>
+
+    <div class='p-formgrid p-grid'>
+      <div class='p-field p-grid p-col-12 p-align-start p-justify-start' style='margin-bottom: 1px;margin-left: 2px;'>
+
+        <p-table class='app-primeng-table'
+                 [value]='dataTables'
+                 [totalRecords]='totalRecordsDataTables'
+                 [lazy]='true'
+                 [paginator]='true'
+                 [rows]='numberOfRowsDataTables'
+                 ([loading])='isLoadingResultsDataTables'
+                 (onLazyLoad)='doInstantFilterSearch($event)'
+                 [scrollable]='true'
+                 [style]="{width: dataTablesWidth}"
+                 styleClass="custom_ptable"
+                 [columns]='colsUserDataTables'
+                 [(first)]="firstSearch">
+
+          <ng-template pTemplate='colgroup' let-columns>
+            <colgroup *ngFor='let col of columns; index as i'>
+              <col [ngStyle]="{'width': col.width}">
+            </colgroup>
+          </ng-template>
+      
+          <ng-template pTemplate='header' let-columns>
+            <tr>
+              <th [pSortableColumn] = 'columns[0].field'>
+                <div [ngStyle]="(columns[0].rtl) ?  {'text-align': 'right'} : {'text-align': 'left'}">
+                  {{ 'Nomor' | translate }}
+                  <p-sortIcon [field]='columns[0].field'></p-sortIcon>  
+                </div>
+              </th>
+
+              <th [pSortableColumn] = 'columns[1].field'>
+                <div [ngStyle]="(columns[1].rtl) ?  {'text-align': 'right'} : {'text-align': 'left'}">
+                  {{ 'Tanggal' | translate }}
+                  <p-sortIcon [field]='columns[1].field'></p-sortIcon>  
+                </div>
+              </th>
+
+              <th [pSortableColumn] = 'columns[2].field'>
+                <div [ngStyle]="(columns[2].rtl) ?  {'text-align': 'right'} : {'text-align': 'left'}">
+                  {{ 'Nama' | translate }}
+                  <p-sortIcon [field]='columns[2].field'></p-sortIcon>
+                </div>
+              </th>
+
+              <th [pSortableColumn] = 'columns[3].field'>
+                <div [ngStyle]="(columns[3].rtl) ?  {'text-align': 'right'} : {'text-align': 'left'}">
+                  {{ 'StatusInvoice' | translate }}
+                  <p-sortIcon [field]='columns[3].field'></p-sortIcon>
+                </div>
+              </th>
+
+              <th [pSortableColumn] = 'columns[4].field'>
+                <div [ngStyle]="(columns[4].rtl) ?  {'text-align': 'right'} : {'text-align': 'left'}">
+                  {{ 'DPP' | translate }}
+                  <p-sortIcon [field]='columns[4].field'></p-sortIcon>
+                </div>
+              </th>
+
+              <th [pSortableColumn] = 'columns[5].field'>
+                <div [ngStyle]="(columns[5].rtl) ?  {'text-align': 'right'} : {'text-align': 'left'}">
+                  {{ 'PPN' | translate }}
+                  <p-sortIcon [field]='columns[5].field'></p-sortIcon>
+                </div>
+              </th>
+
+              <th>
+                <div [ngStyle]="(columns[6].rtl) ?  {'text-align': 'right'} : {'text-align': 'left'}">
+                  {{ 'Deposit' | translate }}
+                </div>
+              </th>
+            </tr>
+
+          </ng-template>
+
+          <ng-template pTemplate='body' let-row>
+            <tr>
+              <td>
+                <a href='javascript:void(0);' (click)='editDataTables(row)'>
+                  {{row.nomor}}
+                </a>
+              </td>
+
+              <td>
+                {{row.tgtrn | dateFormat : 'shortDate' : defaultLanguageState.getDefaultLanguage().locale}}
+              </td>
+
+              <td>
+                {{row.nama}}
+              </td>
+
+              <td>
+                {{row.status | translate}}
+              </td>
+
+              <td>
+                <div [ngStyle]="{'width': '100%', 'direction': 'rtl'}">
+                  {{row.dpp | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}
+                </div>
+              </td>
+
+              <td>
+                <div [ngStyle]="{'width': '100%', 'direction': 'rtl'}">
+                  {{row.ppn | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}
+                </div>
+              </td>
+
+              <td>
+                <p-checkbox [(ngModel)]="row.fltodep" binary="true" disabled="true"></p-checkbox>
+              </td>
+
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate='footer'>
+            <tr>
+              <td colspan="8">
+                <div>
+                  <a pTooltip="{{ 'TambahData' | translate }}"
+                     tooltipPosition="bottom"
+                     (click)='addDataTables()'
+                     style="margin-left: 30px;cursor: pointer;">
+  
+                    <i class="fa fa-plus">&nbsp;&nbsp;
+                      <span style="font-family: 'Source Sans Pro', Arial, sans-serif;">
+                        {{ 'TambahData' | translate }}
+                      </span>
+                    </i>
+  
+                  </a>    
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate='summary'>
+            Total : {{ totalRecordsDataTables }} records
+          </ng-template>
+        </p-table>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+

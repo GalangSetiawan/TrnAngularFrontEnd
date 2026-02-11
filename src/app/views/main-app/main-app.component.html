@@ -1,0 +1,31 @@
+<div class="layout-wrapper" (click)="onLayoutClick()"
+     [ngClass]="{'layout-wrapper-overlay-sidebar': isOverlay(),
+                 'layout-wrapper-slim-sidebar': isSlim(),
+                 'layout-wrapper-horizontal-sidebar': isHorizontal(),
+                 'layout-wrapper-overlay-sidebar-active': overlayMenuActive,
+                 'layout-wrapper-sidebar-inactive': staticMenuDesktopInactive,
+                 'layout-wrapper-sidebar-mobile-active': staticMenuMobileActive}">
+    <app-topbar></app-topbar>
+
+    <div class="layout-sidebar" (click)="onMenuClick($event)"
+         [ngClass]="{'layout-sidebar-dark': menuMode !== 'light',
+         'layout-sidebar-gradient':  menuMode === 'gradient'}">
+        <div class="sidebar-scroll-content">
+            <app-menu></app-menu>
+        </div>
+    </div>
+
+    <app-rightpanel></app-rightpanel>
+
+    <div class="layout-main">
+        <app-sbreadcrumb></app-sbreadcrumb>
+
+        <div class="layout-main-content" style="overflow: auto;">
+            <block-ui>
+              <router-outlet></router-outlet>
+            </block-ui>
+        </div>
+
+        <app-footer *ngIf="false"></app-footer>
+    </div>
+</div>
