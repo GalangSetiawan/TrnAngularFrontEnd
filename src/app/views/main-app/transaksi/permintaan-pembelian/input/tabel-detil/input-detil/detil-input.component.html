@@ -1,0 +1,138 @@
+<div class='ui-g'>
+  <div class='ui-g-12'>
+    <form [formGroup]='inputForm'>
+
+      <div class="ui-g p-formgrid p-grid">
+        <div class="ui-g-12 ui-md-12">
+
+          <!-- Nomor Urut -->
+          <div class="ui-fluid ui-g-12 ui-md-3">
+            <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'NoUrut' | translate }}</label>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+            <input pInputText
+                   type='number'
+                   id='nourut'
+                   name='nourut'
+                   formControlName='nourut'
+                   [disabled]='true'>
+          </div>
+
+          <!-- Barang (Autocomplete) -->
+          <div class="ui-fluid ui-g-12 ui-md-3">
+            <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'Barang' | translate }} *</label>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+            <p-autoComplete inputId='barang'
+                            formControlName='barang'
+                            [suggestions]='filteredBarang'
+                            (completeMethod)='filterBarang($event)'
+                            (onSelect)='onBarangSelect($event)'
+                            field='namaBarang'
+                            dataKey='id'
+                            [forceSelection]='false'
+                            [dropdown]='true'
+                            [minLength]='1'
+                            appendTo='body'
+                            [baseZIndex]="9999"
+                            (onBlur)="verifikasiAutocompleteBarang(inputForm.controls.barang.value)"
+                            [required]='true'>
+            </p-autoComplete>
+            <small *ngIf="inputForm.controls.barang.invalid && inputForm.controls.barang.touched" class="p-error">
+              {{ 'BarangRequired' | translate }}
+            </small>
+          </div>
+
+          <!-- Jumlah Diminta -->
+          <div class="ui-fluid ui-g-12 ui-md-3">
+            <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'JumlahDiminta' | translate }} *</label>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+            <p-inputNumber inputId='jumlahDiminta'
+                           formControlName='jumlahDiminta'
+                           mode='decimal'
+                           [minFractionDigits]='2'
+                           [maxFractionDigits]='2'
+                           (onInput)='jumlahDimintaChanged()'
+                           [required]='true'>
+            </p-inputNumber>
+            <small *ngIf="inputForm.controls.jumlahDiminta.invalid && inputForm.controls.jumlahDiminta.touched" class="p-error">
+              {{ 'JumlahDimintaRequired' | translate }}
+            </small>
+          </div>
+
+          <!-- Unit Diminta (Dropdown) -->
+          <div class="ui-fluid ui-g-12 ui-md-3">
+            <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'UnitDiminta' | translate }} *</label>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+            <p-dropdown inputId='unitDiminta'
+                        [options]='unitOptions'
+                        formControlName='unitDiminta'
+                        (onChange)='unitDimintaChanged()'
+                        appendTo='body'
+                        [required]='true'>
+            </p-dropdown>
+            <small *ngIf="inputForm.controls.unitDiminta.invalid && inputForm.controls.unitDiminta.touched" class="p-error">
+              {{ 'UnitDimintaRequired' | translate }}
+            </small>
+          </div>
+
+          <!-- Jumlah Unit Stok (Auto-calculated, Disabled) -->
+          <div class="ui-fluid ui-g-12 ui-md-3">
+            <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'JumlahUnitStok' | translate }}</label>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+            <p-inputNumber inputId='jumlahUnitStok'
+                           formControlName='jumlahUnitStok'
+                           mode='decimal'
+                           [minFractionDigits]='2'
+                           [maxFractionDigits]='2'
+                           [disabled]='true'>
+            </p-inputNumber>
+            <small class="p-info">{{ 'AutoCalculated' | translate }}</small>
+          </div>
+
+          <!-- Unit Stok (Auto-populated, Disabled) -->
+          <div class="ui-fluid ui-g-12 ui-md-3">
+            <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'UnitStok' | translate }}</label>
+          </div>
+          <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+            <input pInputText
+                   type='text'
+                   id='unitStok'
+                   name='unitStok'
+                   formControlName='unitStok'
+                   [disabled]='true'>
+          </div>
+
+        </div>
+      </div>
+
+      <br>
+
+      <!-- Action Buttons -->
+      <div class='p-formgrid p-grid'>
+        <div class='p-field p-grid p-col-12 p-align-start p-justify-start' style='margin-bottom: 1px;margin-left: 2px;'>
+          <p-button label="{{ 'Simpan' | translate }}"
+                    styleClass='ui-button-raised ui-button-success'
+                    icon='pi pi-check'
+                    iconPos='left'
+                    (click)='Save()'
+                    [disabled]='inputForm.invalid'
+                    [style]="{'margin-left': '5px', 'margin-top': '10px'}">
+          </p-button>
+
+          <p-button label="{{ 'Batal' | translate }}"
+                    styleClass='ui-button-raised ui-button-secondary'
+                    icon='pi pi-times'
+                    iconPos='left'
+                    (click)='back()'
+                    [style]="{'margin-left': '5px', 'margin-top': '10px'}">
+          </p-button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

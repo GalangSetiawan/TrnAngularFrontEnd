@@ -18,6 +18,24 @@ const routes: Routes = [
 
       // domain
       {
+        path: 'master/bagian',
+        data: {
+          breadcrumb: 'MasterBagian',
+          menucode: '002001'
+        },
+        loadChildren: () => import('./master/bagian/bagian.module')
+                                   .then((m) => m.BagianModule),
+      },
+      {
+        path: 'master/barang',
+        data: {
+          breadcrumb: 'MasterBarang',
+          menucode: '002002'
+        },
+        loadChildren: () => import('./master/barang/barang.module')
+                                   .then((m) => m.BarangModule),
+      },
+      {
         path: 'master/customer',
         data: {
           breadcrumb: 'Customer',
@@ -34,6 +52,15 @@ const routes: Routes = [
         },
         loadChildren: () => import('./transaksi/invoice-manual/invoice-manual.module')
                                    .then((m) => m.InvoiceManualModule),
+      },
+      {
+        path: 'transaksi/permintaan-pembelian',
+        data: {
+          breadcrumb: 'PermintaanPembelian',
+          menucode: '003002'
+        },
+        loadChildren: () => import('./transaksi/permintaan-pembelian/permintaan-pembelian.module')
+                                   .then((m) => m.PermintaanPembelianModule),
       },
 
     ]

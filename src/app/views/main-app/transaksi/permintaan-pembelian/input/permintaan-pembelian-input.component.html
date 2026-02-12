@@ -1,0 +1,143 @@
+<div class='ui-g' (resized)="onDivDataTableResized($event)">
+  <div class='ui-g-12'>
+    <div class="card no-margin">
+
+      <div class='p-formgrid p-grid'>
+        <div class='p-field p-grid p-col-6 p-justify-start p-align-center' style='margin-bottom: 1px;margin-left: 1px;'>
+          <h2 style="margin-top: 10px; margin-bottom: 10px;">{{ title | translate }} - {{ (mode === 'add' ? 'Tambah' : 'Edit') | translate }}</h2>
+        </div>
+      </div>
+
+      <hr style="margin-bottom: 30px;">
+
+      <form [formGroup]='inputForm'>
+
+        <!-- Header Form Fields -->
+        <div class="ui-g p-formgrid p-grid">
+          <div class="ui-g-12 ui-md-6">
+
+            <!-- Nomor Bon -->
+            <div class="ui-fluid ui-g-12 ui-md-3">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'NomorBon' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+              <input pInputText
+                     type='text'
+                     id='nomor'
+                     name='nomor'
+                     formControlName='nomor'
+                     maxlength=30>
+            </div>
+
+            <!-- Tanggal Bon -->
+            <div class="ui-fluid ui-g-12 ui-md-3">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'TanggalBon' | translate }} *</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+              <p-calendar inputId='tanggal'
+                          formControlName='tanggal'
+                          [showIcon]='true'
+                          dateFormat='dd/mm/yy'
+                          [monthNavigator]='true'
+                          [yearNavigator]='true'
+                          yearRange='2000:2100'
+                          appendTo='body'
+                          [required]='true'>
+              </p-calendar>
+              <small *ngIf="inputForm.controls.tanggal.invalid && inputForm.controls.tanggal.touched" class="p-error">
+                {{ 'TanggalBonRequired' | translate }}
+              </small>
+            </div>
+
+            <!-- Bagian (Autocomplete) -->
+            <div class="ui-fluid ui-g-12 ui-md-3">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'Bagian' | translate }} *</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+              <p-autoComplete inputId='bagian'
+                              formControlName='bagian'
+                              [suggestions]='filteredBagian'
+                              (completeMethod)='filterBagian($event)'
+                              field='namaBagian'
+                              [dropdown]='true'
+                              appendTo='body'
+                              (onBlur)="verifikasiAutocompleteBagian(inputForm.controls.bagian.value)"
+                              [required]='true'>
+              </p-autoComplete>
+              <small *ngIf="inputForm.controls.bagian.invalid && inputForm.controls.bagian.touched" class="p-error">
+                {{ 'BagianRequired' | translate }}
+              </small>
+            </div>
+
+            <!-- Keterangan -->
+            <div class="ui-fluid ui-g-12 ui-md-3">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'Keterangan' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+              <textarea pInputTextarea
+                        id='keterangan'
+                        name='keterangan'
+                        formControlName='keterangan'
+                        rows='3'
+                        maxlength=500>
+              </textarea>
+            </div>
+
+          </div>
+        </div>
+
+        <br>
+
+        <!-- Tab View untuk Detail Items -->
+        <p-tabView [(activeIndex)]='tabIndex'>
+          <p-tabPanel header="{{ 'DetailBarang' | translate }}">
+            <app-tabel-detil
+              [(dataSource)]='dataTablesDetail'
+              [mode]='mode'
+              [dataTablesWidth]='dataTablesWidth'
+              [expandedRows]='expandedRowsDataTablesDetail'
+              (dataSourceChange)='detailChanged()'>
+            </app-tabel-detil>
+          </p-tabPanel>
+        </p-tabView>
+
+        <br>
+
+        <!-- Action Buttons -->
+        <div class='p-formgrid p-grid'>
+          <div class='p-field p-grid p-col-12 p-align-start p-justify-start' style='margin-bottom: 1px;margin-left: 2px;'>
+            <p-button label="{{ 'Simpan' | translate }}"
+                      styleClass='ui-button-raised ui-button-success'
+                      icon='pi pi-check'
+                      iconPos='left'
+                      (click)='Save()'
+                      [disabled]='inputForm.invalid'
+                      [style]="{'margin-left': '5px', 'margin-top': '10px'}">
+            </p-button>
+
+            <p-button *ngIf="mode === 'edit'"
+                      label="{{ 'Hapus' | translate }}"
+                      styleClass='ui-button-raised ui-button-danger'
+                      icon='pi pi-trash'
+                      iconPos='left'
+                      (click)='delete()'
+                      [style]="{'margin-left': '5px', 'margin-top': '10px'}">
+            </p-button>
+
+            <p-button label="{{ 'Kembali' | translate }}"
+                      styleClass='ui-button-raised ui-button-secondary'
+                      icon='pi pi-arrow-left'
+                      iconPos='left'
+                      (click)='back()'
+                      [style]="{'margin-left': '5px', 'margin-top': '10px'}">
+            </p-button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

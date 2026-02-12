@@ -39,8 +39,9 @@ export class FEComboConstantService {
 
   getAktifNonAktif(): Observable<StdResponse<ComboConstant[]>> {
     const result = {data: [
-      {id: '1', kode: 'T', deskripsi: 'NonAktif'},
-      {id: '2', kode: 'Y', deskripsi: 'Aktif'},
+      {id: '1', kode: '', deskripsi: 'Semua'},
+      {id: '2', kode: 'T', deskripsi: 'NonAktif'},
+      {id: '3', kode: 'Y', deskripsi: 'Aktif'},
     ]};
     return of(result);
   }

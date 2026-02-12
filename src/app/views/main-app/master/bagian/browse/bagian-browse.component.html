@@ -1,0 +1,162 @@
+<div class='ui-g' (resized)="onDivDataTableResized($event)">
+  <div class='ui-g-12'>
+    <div class="card no-margin">
+      <div class='p-formgrid p-grid'>
+        <div class='p-field p-grid p-col-6 p-justify-start p-align-center' style='margin-bottom: 1px;margin-left: 1px;'>
+          <h2 style="margin-top: 10px; margin-bottom: 10px;">{{ title | translate }}</h2>
+        </div>
+      </div>
+
+      <hr style="margin-bottom: 30px;">
+
+      <!-- Search Form -->
+      <form [formGroup]='searchForm'>
+        <div class="ui-g p-formgrid p-grid">
+          <div class="ui-g-12 ui-md-4">
+            <div class="ui-fluid ui-g-12 ui-md-12">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'KodeBagian' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-12" style="padding: 3px;">
+              <input pInputText type='text' formControlName='kodeBagian' maxlength=10>
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-4">
+            <div class="ui-fluid ui-g-12 ui-md-12">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'NamaBagian' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-12" style="padding: 3px;">
+              <input pInputText type='text' formControlName='namaBagian' maxlength=100>
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-4">
+            <div class="ui-fluid ui-g-12 ui-md-12">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>{{ 'Status' | translate }}</label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-12 p-formgroup-inline" style="padding: 3px;">
+              <div *ngFor='let itemAktif of radioButtonAktif' class='p-field-checkbox'>
+                <p-radioButton inputId='itemAktif.key'
+                             name='itemAktif'
+                             [value]='itemAktif.key'
+                             formControlName='aktif'></p-radioButton>
+              <label [for]='itemAktif.key'>{{itemAktif.name | translate}}</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-12" style="padding: 3px;">
+            <p-button type='button' label="{{ 'Cari' | translate }}" styleClass='ui-button-raised' icon='pi pi-search' iconPos='left' (click)='onSearch()'></p-button>
+            <p-button type='button' label="{{ 'Reset' | translate }}" styleClass='ui-button-raised ui-button-secondary' icon='pi pi-refresh' iconPos='left' (click)='onReset()' [style]="{'margin-left': '5px'}"></p-button>
+          </div>
+        </div>
+      </form>
+
+      <hr>
+
+      <!-- Data Table -->
+      <p-table class='app-primeng-table'
+               [value]='dataTables'
+               [totalRecords]='totalRecordsDataTables'
+               [paginator]='true'
+               [rows]='numberOfRowsDataTables'
+               [loading]='isLoadingResultsDataTables'
+               [lazy]="true"
+               (onLazyLoad)="paginate($event)"
+               [first]="firstSearch"
+               [rowsPerPageOptions]="[10,25,50]"
+               [scrollable]='true'
+               [style]="{width: dataTablesWidth}"
+               styleClass="grid_report"
+               [columns]='colsDataTables'>
+
+        <ng-template pTemplate='colgroup' let-columns>
+          <colgroup>
+            <col style='width:80px'>
+            <col *ngFor="let col of columns" [style.width]="col.width">
+            <col style='width:120px'>
+          </colgroup>
+        </ng-template>
+
+        <ng-template pTemplate='header' let-columns>
+          <tr>
+            <th>
+              <div style='text-align: center'>{{ 'Delete' | translate }}</div>
+            </th>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              <div style='text-align: left'>
+                {{ col.header | translate }}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </div>
+            </th>
+            <th>
+              <div style='text-align: center'>{{ 'Aksi' | translate }}</div>
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate='body' let-rowData let-columns='columns'>
+          <tr>
+            <td align="center">
+              <button pButton
+                      type='button'
+                      class='ui-button-danger'
+                      icon='pi pi-trash'
+                      iconPos='center'
+                      pTooltip="{{ 'Hapus' | translate }}"
+                      (click)='onDelete(rowData)'>
+              </button>
+            </td>
+            <td>
+              <a href='javascript:void(0);' (click)='onEdit(rowData)'>
+                {{ rowData.kodeBagian }}
+              </a>
+            </td>
+            <td>{{ rowData.namaBagian }}</td>
+            <td>
+              <span [class]="'badge ' + (rowData.aktif === 'Y' ? 'badge-success' : 'badge-danger')">
+                {{ (rowData.aktif === 'Y' ? 'Aktif' : 'TidakAktif') | translate }}
+              </span>
+            </td>
+            <td style='text-align: center'>
+              <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm p-mr-2" pTooltip="{{ 'Lihat' | translate }}" (click)="onView(rowData)"></button>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-sm" pTooltip="{{ 'Edit' | translate }}" (click)="onEdit(rowData)"></button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate='emptymessage'>
+          <tr>
+            <td [attr.colspan]="colsDataTables.length + 2" class="text-center">
+              {{ 'NoDataFound' | translate }}
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate='footer'>
+          <tr>
+            <td [attr.colspan]="colsDataTables.length + 2">
+              <div>
+                <a pTooltip="{{ 'TambahData' | translate }}"
+                   tooltipPosition="bottom"
+                   (click)='onAdd()'
+                   style="margin-left: 30px;cursor: pointer;">
+
+                  <i class="fa fa-plus">&nbsp;&nbsp;
+                    <span style="font-family: 'Source Sans Pro', Arial, sans-serif;">
+                      {{ 'TambahData' | translate }}
+                    </span>
+                  </i>
+
+                </a>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

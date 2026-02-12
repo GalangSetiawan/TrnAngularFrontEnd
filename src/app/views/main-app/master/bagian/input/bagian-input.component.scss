@@ -1,0 +1,17 @@
+// Master Bagian Input Component Styles
+
+.required {
+  color: red;
+  margin-left: 2px;
+}
+
+.p-invalid {
+  border-color: #f44336 !important;
+}
+
+.p-error {
+  color: #f44336;
+  font-size: 12px;
+  display: block;
+  margin-top: 4px;
+}
