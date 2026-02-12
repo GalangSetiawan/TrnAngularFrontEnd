@@ -1,0 +1,166 @@
+<div class='ui-g' (resized)="onDivDataTableResized($event)">
+  <div class='ui-g-12'>
+    <div class="card no-margin">
+
+      <div class='p-formgrid p-grid'>
+        <div class='p-field p-grid p-col-6 p-justify-start p-align-center' style='margin-bottom: 1px;margin-left: 1px;'>
+          <h2 style="margin-top: 10px; margin-bottom: 10px;">{{ title | translate }} - {{ 'Browse' | translate }}</h2>
+        </div>
+      </div>
+
+      <hr style="margin-bottom: 30px;">
+
+      <form [formGroup]='searchForm'>
+
+        <div class="ui-g p-formgrid p-grid">
+          <div class="ui-g-12 ui-md-6">
+              <div class="ui-fluid ui-g-12 ui-md-3">
+                <label class='ui-fluid p-sm-3'
+                       style='padding: 2px!important;'>{{ 'NomorBon' | translate }}</label>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+                <input pInputText
+                       type='text'
+                       id='nomor'
+                       name='nomor'
+                       formControlName='nomor'
+                       maxlength=30>
+              </div>
+
+              <div class="ui-fluid ui-g-12 ui-md-3">
+                <label class='ui-fluid p-sm-3'
+                       style='padding: 2px!important;'>{{ 'TanggalBon' | translate }}</label>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+                <p-calendar inputId='tanggal'
+                            formControlName='tanggal'
+                            [showIcon]='true'
+                            dateFormat='dd/mm/yy'
+                            [monthNavigator]='true'
+                            [yearNavigator]='true'
+                            yearRange='2000:2100'
+                            appendTo='body'>
+                </p-calendar>
+              </div>
+
+              <div class="ui-fluid ui-g-12 ui-md-3">
+                <label class='ui-fluid p-sm-3'
+                       style='padding: 2px!important;'>{{ 'Bagian' | translate }}</label>
+              </div>
+              <div class="ui-fluid ui-g-12 ui-md-9" style="padding: 3px;">
+                <input pInputText
+                       type='text'
+                       id='bagian'
+                       name='bagian'
+                       formControlName='bagian'
+                       maxlength=100>
+              </div>
+
+          </div>
+        </div>
+
+        <div class='p-formgrid p-grid'>
+          <div class='p-field p-grid p-col-12 p-align-start p-justify-start' style='margin-bottom: 1px;margin-left: 2px;'>
+              <p-button type='submit' label="{{ 'Cari' | translate }}" styleClass='ui-button-raised ui-button-primary' icon='pi pi-search' iconPos='left' (click)='search()' [style]="{'margin-left': '5px', 'margin-top': '10px'}"></p-button>
+          </div>
+        </div>
+
+      </form>
+
+      <br>
+
+      <div class='p-formgrid p-grid'>
+        <div class='p-field p-grid p-col-12 p-align-start p-justify-start' style='margin-bottom: 1px;margin-left: 2px;'>
+
+          <p-table class='app-primeng-table'
+                   [value]='dataTables'
+                   [totalRecords]='totalRecordsDataTables'
+                   [lazy]='true'
+                   [paginator]='true'
+                   [rows]='numberOfRowsDataTables'
+                   [loading]='isLoadingResultsDataTables'
+                   (onLazyLoad)='onPageChange($event)'
+                   [scrollable]='true'
+                   [style]="{width: dataTablesWidth}"
+                   styleClass="custom_ptable"
+                   [columns]='colsDataTables'
+                   [(first)]="firstSearch">
+
+            <ng-template pTemplate='caption'>
+              <div class='p-d-flex p-ai-center p-jc-between'>
+                <button pButton pRipple label="{{ 'Tambah' | translate }}" icon='pi pi-plus' class='p-button-success p-mr-2' (click)='add()'></button>
+              </div>
+            </ng-template>
+
+            <ng-template pTemplate='colgroup' let-columns>
+              <colgroup *ngFor='let col of columns; index as i'>
+                <col [ngStyle]="{'width': col.width}">
+              </colgroup>
+            </ng-template>
+
+            <ng-template pTemplate='header' let-columns>
+              <tr>
+                <th [pSortableColumn]='columns[0].field'>
+                  <div style='text-align: left'>
+                    {{ columns[0].header | translate }}
+                    <p-sortIcon [field]='columns[0].field'></p-sortIcon>
+                  </div>
+                </th>
+
+                <th [pSortableColumn]='columns[1].field'>
+                  <div style='text-align: left'>
+                    {{ columns[1].header | translate }}
+                    <p-sortIcon [field]='columns[1].field'></p-sortIcon>
+                  </div>
+                </th>
+
+                <th [pSortableColumn]='columns[2].field'>
+                  <div style='text-align: left'>
+                    {{ columns[2].header | translate }}
+                    <p-sortIcon [field]='columns[2].field'></p-sortIcon>
+                  </div>
+                </th>
+
+                <th>
+                  <div style='text-align: left'>
+                    {{ columns[3].header | translate }}
+                  </div>
+                </th>
+
+                <th>
+                  <div style='text-align: center'>
+                    {{ 'Actions' | translate }}
+                  </div>
+                </th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate='body' let-rowData let-columns='columns'>
+              <tr>
+                <td>{{rowData.nomor}}</td>
+                <td>{{rowData.tanggal | date: 'dd/MM/yyyy'}}</td>
+                <td>{{rowData.bagian?.namaBagian}}</td>
+                <td>{{rowData.keterangan}}</td>
+                <td style='text-align: center'>
+                  <button pButton pRipple icon='pi pi-pencil' class='p-button-rounded p-button-success p-mr-2' (click)='edit(rowData)' pTooltip="{{ 'Edit' | translate }}" tooltipPosition='bottom'></button>
+                  <button pButton pRipple icon='pi pi-trash' class='p-button-rounded p-button-danger' (click)='delete(rowData)' pTooltip="{{ 'Delete' | translate }}" tooltipPosition='bottom'></button>
+                </td>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate='emptymessage'>
+              <tr>
+                <td colspan='5' style='text-align: center'>{{ 'NoDataFound' | translate }}</td>
+              </tr>
+            </ng-template>
+
+          </p-table>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

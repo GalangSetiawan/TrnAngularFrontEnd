@@ -1,0 +1,20 @@
+.required {
+  color: red;
+}
+
+.p-text-secondary {
+  color: #6c757d;
+  font-size: 0.875rem;
+  font-style: italic;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+::ng-deep .p-invalid {
+  border-color: red !important;
+}
+
+::ng-deep .p-error {
+  color: red;
+  font-size: 0.875rem;
+}

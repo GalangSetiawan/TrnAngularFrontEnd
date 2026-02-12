@@ -36,6 +36,16 @@ export class AppMenuComponent implements OnInit {
         routerLink: ['/master'],
         items: [
           {
+            label: 'MasterBagian',
+            icon: 'fa fa-fw fa-sitemap',
+            routerLink: ['/master/bagian'],
+          },
+          {
+            label: 'MasterBarang',
+            icon: 'fa fa-fw fa-cubes',
+            routerLink: ['/master/barang'],
+          },
+          {
             label: 'Customer',
             icon: 'fa fa-fw fa-leaf',
             routerLink: ['/master/customer'],
@@ -47,6 +57,11 @@ export class AppMenuComponent implements OnInit {
         icon: 'fa fa-fw fa-server',
         routerLink: ['/transaksi'],
         items: [
+          {
+            label: 'PermintaanPembelian',
+            icon: 'fa fa-fw fa-shopping-cart',
+            routerLink: ['/transaksi/permintaan-pembelian'],
+          },
           {
             label: 'InvoiceManual',
             icon: 'fa fa-fw fa-chart-plus',

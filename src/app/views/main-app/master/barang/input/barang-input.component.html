@@ -1,0 +1,219 @@
+<div class='ui-g'>
+  <div class='ui-g-12'>
+    <div class="card no-margin">
+      <div class='p-formgrid p-grid'>
+        <div class='p-field p-grid p-col-6 p-justify-start p-align-center'
+             style='margin-bottom: 1px;margin-left: 1px;'>
+          <h2 style="margin-top: 10px; margin-bottom: 10px;">{{ title | translate }}</h2>
+        </div>
+      </div>
+
+      <hr style="margin-bottom: 30px;">
+
+      <form [formGroup]='inputForm'>
+
+        <div class="ui-g p-formgrid p-grid">
+
+          <!-- Kode Barang -->
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>
+                {{ 'KodeBarang' | translate }} <span class="required">*</span>
+              </label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <input pInputText
+                     type='text'
+                     [ngStyle]="(inputForm.controls.kodeBarang.valid ||
+                               inputForm.controls.kodeBarang.disabled) ? {} :
+                               {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                     formControlName='kodeBarang'
+                     maxlength=20>
+            </div>
+          </div>
+
+          <!-- Nama Barang -->
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>
+                {{ 'NamaBarang' | translate }} <span class="required">*</span>
+              </label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <input pInputText
+                     type='text'
+                     [ngStyle]="(inputForm.controls.namaBarang.valid ||
+                               inputForm.controls.namaBarang.disabled) ? {} :
+                               {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                     formControlName='namaBarang'
+                     maxlength=100>
+            </div>
+          </div>
+
+          <!-- Unit 1 -->
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>
+                {{ 'Unit1' | translate }} <span class="required">*</span>
+              </label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <input pInputText
+                     type='text'
+                     [ngStyle]="(inputForm.controls.unit1.valid ||
+                               inputForm.controls.unit1.disabled) ? {} :
+                               {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                     formControlName='unit1'
+                     maxlength=10
+                     placeholder="contoh: Karton">
+            </div>
+          </div>
+
+          <!-- Konversi Unit1 ke Unit2 -->
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>
+                {{ 'KonversiUnit1KeUnit2' | translate }} <span class="required">*</span>
+              </label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <p-inputNumber
+                [ngStyle]="(inputForm.controls.konversiUnit1KeUnit2.valid ||
+                          inputForm.controls.konversiUnit1KeUnit2.disabled) ? {} :
+                          {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                formControlName='konversiUnit1KeUnit2'
+                mode="decimal"
+                [minFractionDigits]="2"
+                [maxFractionDigits]="4"
+                [min]="0.0001"
+                [useGrouping]="false">
+              </p-inputNumber>
+              <small class="p-text-secondary">1 Unit1 = ? Unit2</small>
+            </div>
+          </div>
+
+          <!-- Unit 2 -->
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>
+                {{ 'Unit2' | translate }} <span class="required">*</span>
+              </label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <input pInputText
+                     type='text'
+                     [ngStyle]="(inputForm.controls.unit2.valid ||
+                               inputForm.controls.unit2.disabled) ? {} :
+                               {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                     formControlName='unit2'
+                     maxlength=10
+                     placeholder="contoh: Lusin">
+            </div>
+          </div>
+
+          <!-- Konversi Unit2 ke Stok -->
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>
+                {{ 'KonversiUnit2KeStok' | translate }} <span class="required">*</span>
+              </label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <p-inputNumber
+                [ngStyle]="(inputForm.controls.konversiUnit2KeStok.valid ||
+                          inputForm.controls.konversiUnit2KeStok.disabled) ? {} :
+                          {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                formControlName='konversiUnit2KeStok'
+                mode="decimal"
+                [minFractionDigits]="2"
+                [maxFractionDigits]="4"
+                [min]="0.0001"
+                [useGrouping]="false">
+              </p-inputNumber>
+              <small class="p-text-secondary">1 Unit2 = ? Unit Stok</small>
+            </div>
+          </div>
+
+          <!-- Unit Stok -->
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>
+                {{ 'UnitStok' | translate }} <span class="required">*</span>
+              </label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <input pInputText
+                     type='text'
+                     [ngStyle]="(inputForm.controls.unitStok.valid ||
+                               inputForm.controls.unitStok.disabled) ? {} :
+                               {'border-style': 'solid', 'border-width': 'thin', 'border-color': 'red', 'border-radius': '1px'}"
+                     formControlName='unitStok'
+                     maxlength=10
+                     placeholder="contoh: Pcs">
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="ui-g-12 ui-md-6">
+            <div class="ui-fluid ui-g-12 ui-md-4">
+              <label class='ui-fluid p-sm-3' style='padding: 2px!important;'>
+                {{ 'Status' | translate }}
+              </label>
+            </div>
+            <div class="ui-fluid ui-g-12 ui-md-8" style="padding: 3px;">
+              <div *ngFor="let item of radioButtonAktif" class="p-field-radiobutton" style="display: inline-block; margin-right: 15px;">
+                <p-radioButton [inputId]="item.key"
+                               name="aktif"
+                               formControlName="aktif"
+                               [value]="item.key">
+                </p-radioButton>
+                <label [for]="item.key" style="margin-left: 5px;">{{item.name}}</label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Example explanation -->
+        <div class="ui-g p-formgrid p-grid" style="margin-top: 20px;">
+          <div class="ui-g-12">
+            <p-fieldset legend="{{ 'ContohKonversiUnit' | translate }}" [toggleable]="true" [collapsed]="true">
+              <p>{{ 'ContohKonversiUnitDesc' | translate }}</p>
+              <ul>
+                <li>Unit1 = Karton, Konversi Unit1 ke Unit2 = 10 (1 Karton = 10 Lusin)</li>
+                <li>Unit2 = Lusin, Konversi Unit2 ke Stok = 12 (1 Lusin = 12 Pcs)</li>
+                <li>Unit Stok = Pcs</li>
+                <li><strong>{{ 'HasilKonversi' | translate }}:</strong> 1 Karton = 10 × 12 = 120 Pcs</li>
+              </ul>
+            </p-fieldset>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class='ui-g'>
+  <div class="p-col-12 p-justify-start" style='margin-left: 0px;'>
+    <p-button type='submit'
+              label="{{ 'Simpan' | translate }}"
+              styleClass='ui-button-raised float-left'
+              icon='pi pi-save'
+              iconPos='left'
+              (onClick)='Save()'
+              [disabled]='!inputForm.valid || isViewOnly'
+              [style]="{'margin-top': '10px'}">
+    </p-button>
+
+    <p-button type='button'
+              label="{{ 'Kembali' | translate }}"
+              styleClass='ui-button-raised ui-button-success'
+              icon='pi pi-arrow-circle-left'
+              iconPos='left'
+              (click)='back()'
+              [style]="{'margin-left': '5px', 'margin-top': '10px'}">
+    </p-button>
+  </div>
+</div>

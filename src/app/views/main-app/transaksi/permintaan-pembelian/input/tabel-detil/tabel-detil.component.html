@@ -1,0 +1,204 @@
+<div class='p-formgrid p-grid'>
+  <div class='p-field p-grid p-col-12 p-align-start p-justify-start' style='margin-bottom: 1px;margin-left: 2px;'>
+    <p-button label="{{ 'TambahDetil' | translate }}"
+              styleClass='ui-button-raised ui-button-primary'
+              icon='pi pi-plus'
+              iconPos='left'
+              (click)='addDataTables()'
+              [style]="{'margin-left': '5px', 'margin-bottom': '10px'}">
+    </p-button>
+
+    <p-button label="{{ 'HapusTerpilih' | translate }}"
+              styleClass='ui-button-raised ui-button-danger'
+              icon='pi pi-trash'
+              iconPos='left'
+              (click)='deleteSelectedRows()'
+              [style]="{'margin-left': '5px', 'margin-bottom': '10px'}">
+    </p-button>
+  </div>
+</div>
+
+<p-table class='app-primeng-table'
+         [value]='dataSource'
+         [paginator]='true'
+         [rows]='numberOfRowsDataTables'
+         dataKey='keyIn'
+         [scrollable]='true'
+         [style]="{width: dataTablesWidth}"
+         styleClass="grid_report"
+         [columns]='colsDataTables'
+         [expandedRowKeys]='expandedRows'
+         [multiSortMeta]="multiSortMeta"
+         [(first)]="firstSearch">
+
+  <ng-template pTemplate='colgroup' let-columns>
+    <colgroup>
+      <col style='width:30px'>
+      <col style='width:50px'>
+      <col style='width:80px'>
+      <col style='width:250px'>
+      <col style='width:150px'>
+      <col style='width:120px'>
+      <col style='width:150px'>
+      <col style='width:120px'>
+      <col style='width:100px'>
+    </colgroup>
+  </ng-template>
+
+  <ng-template pTemplate='header' let-columns>
+    <tr>
+      <th></th>
+
+      <th>{{ 'Delete' | translate }}
+        <table style='width:100%'>
+          <tr>
+            <td>
+              <p-checkbox binary='true'
+                          inputId='kolomDeleteDataTables'
+                          (onChange)='deleteSelectorDataTables($event)'
+                          styleClass="customCheckBoxClass">
+              </p-checkbox>
+            </td>
+          </tr>
+        </table>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'center'}">
+          {{ 'NoUrut' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'left'}">
+          {{ 'NamaBarang' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'right'}">
+          {{ 'JumlahDiminta' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'left'}">
+          {{ 'UnitDiminta' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'right'}">
+          {{ 'JumlahUnitStok' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'left'}">
+          {{ 'UnitStok' | translate }}
+        </div>
+      </th>
+
+      <th>
+        <div [ngStyle]="{'text-align': 'center'}">
+          {{ 'Actions' | translate }}
+        </div>
+      </th>
+
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate='body' let-row let-columns='columns' let-expanded='expanded'>
+    <tr>
+
+      <td>
+        <a href="#" [pRowToggler]="row" *ngIf="row.errorMsg !== null">
+          <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+             style="color: black;"></i>
+        </a>
+      </td>
+
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate='output'>
+            <table style='width:100%'>
+              <tr>
+                <td style='text-align: center'>
+                  <p-checkbox binary='true'
+                              inputId='kolomDeleteDataTables'
+                              [(ngModel)]='row.isSelect'>
+                  </p-checkbox>
+                </td>
+              </tr>
+            </table>
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'text-align': 'center'}">
+          {{row.nourut | number:'.0': defaultLanguageState.getDefaultLanguage().locale}}
+        </div>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'text-align': 'left'}">
+          <a href='javascript:void(0);' (click)='editDataTables(row)'>
+            {{row.barang?.namaBarang}}
+          </a>
+        </div>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'direction': 'rtl'}">
+          {{row.jumlahDiminta | number:'.2': defaultLanguageState.getDefaultLanguage().locale}}
+        </div>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'text-align': 'left'}">
+          {{row.unitDiminta}}
+        </div>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'direction': 'rtl'}">
+          {{row.jumlahUnitStok | number:'.2': defaultLanguageState.getDefaultLanguage().locale}}
+        </div>
+      </td>
+
+      <td>
+        <div [ngStyle]="{'width': '100%', 'text-align': 'left'}">
+          {{row.unitStok}}
+        </div>
+      </td>
+
+      <td style='text-align: center'>
+        <button pButton pRipple icon='pi pi-pencil' class='p-button-rounded p-button-success p-button-sm p-mr-2' (click)='editDataTables(row)' pTooltip="{{ 'Edit' | translate }}" tooltipPosition='bottom'></button>
+      </td>
+
+    </tr>
+  </ng-template>
+
+  <!-- Expandable Row untuk Error Messages -->
+  <ng-template pTemplate='rowexpansion' let-row let-columns='columns'>
+    <tr *ngIf="row.errorMsg !== null">
+      <td colspan='9'>
+        <div class='ui-g ui-fluid' style='font-size:16px;padding:20px;background-color: #ffebee;'>
+          <div class='ui-g-12'>
+            <div *ngFor='let errorMsg of row.errorMsg'>
+              <span style='color: #c62828;'><i class='pi pi-exclamation-triangle'></i> {{errorMsg.desc}}</span>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate='emptymessage'>
+    <tr>
+      <td colspan='9' style='text-align: center'>{{ 'NoDataFound' | translate }}</td>
+    </tr>
+  </ng-template>
+
+</p-table>

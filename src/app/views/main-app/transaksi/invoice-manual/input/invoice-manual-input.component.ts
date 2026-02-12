@@ -649,16 +649,15 @@ export class InvoiceManualInputComponent implements OnInit, OnDestroy, AfterView
     )
     .subscribe(
       (result: StdResponse<Customer[]>) => {
-        // this.uiBlockService.hideUiBlock();
-
         this.filteredCustomer = result.data;
+        setTimeout(() => {
+          this.cdRef.markForCheck();
+          this.uiBlockService.hideUiBlock();
+        }, 0);
       },
       (error) => {
         this.uiBlockService.hideUiBlock();
         this.appAlertService.error(error.errors);
-      },
-      () => {
-        this.uiBlockService.hideUiBlock();
       }
     );
   }
@@ -683,13 +682,13 @@ export class InvoiceManualInputComponent implements OnInit, OnDestroy, AfterView
       )
       .subscribe(
         (result: StdResponse<Customer>) => {
+          this.uiBlockService.hideUiBlock();
 
           if (result.data) {
             this.inputForm.controls.customer.patchValue(result.data);
           } else {
             this.inputForm.controls.customer.patchValue(new Customer());
           }
-          // this.uiBlockService.hideUiBlock();
 
        },
        (error) => {
